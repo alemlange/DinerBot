@@ -1,0 +1,40 @@
+﻿@model ManagerDesk.ViewModels.AllTablesViewModel
+
+@if (Model.ActiveTables.Any() || Model.InActiveTables.Any())
+{
+    if (Model.ActiveTables.Any())
+    {
+        for (var i = 0; i < Model.ActiveTables.Count(); i += 4)
+        {
+            <div class="row">
+                @{
+                    var ta = Model.ActiveTables.Skip(i).Take(4);
+                }
+                @foreach (var table in ta)
+                {
+                    @Html.Partial("TableCard", table)
+                }
+            </div>
+        }
+    }
+    <hr />
+    if (Model.InActiveTables.Any())
+    {
+        for (var i = 0; i < Model.InActiveTables.Count(); i += 4)
+        {
+            <div class="row">
+                @{
+                    var ti = Model.InActiveTables.Skip(i).Take(4);
+                }
+                @foreach (var table in ti)
+                {
+                    @Html.Partial("TableCard", table)
+                }
+            </div>
+        }
+    }
+}
+else
+{
+    @*<h4>Нет столов</h4>*@
+}

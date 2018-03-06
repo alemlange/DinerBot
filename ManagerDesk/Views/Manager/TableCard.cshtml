@@ -1,0 +1,77 @@
+﻿@model ManagerDesk.ViewModels.TableCardViewModel
+@{
+    string TimeFormat = "HH:mm";
+
+    var orderTimeLocal = Model.OrderPlaced;
+
+    if (!string.IsNullOrEmpty(Model.TimeZoneId))
+    {
+        orderTimeLocal = TimeZoneInfo.ConvertTime(Model.OrderPlaced, TimeZoneInfo.FindSystemTimeZoneById(Model.TimeZoneId));
+    }
+}
+
+<div class="col-md-6 col-lg-3">
+    <div class="info-item js-table-card @Model.TableStyles" data-actionstarget="@Url.Action("TableActions","Manager")" data-itemid="@Model.Id" data-type="Table">
+        <div class="table-wrap">
+
+            @if (Model.TableActive)
+            {
+                <div class="toolbar-mini">
+                    <div class="toolbar-mini__btn @Model.OrderProcessedStyle js-set-table-action" data-target="@Url.Action("TableSetProccesed","Manager")"><i class="fa fa-check" aria-hidden="true"></i></div>
+                    @if (Model.HelpNeeded)
+                    {
+                        <div class="toolbar-mini__btn @Model.HelpNeededStyle js-set-table-action" data-target="@Url.Action("TableSetHelp","Manager")"><i class="fa fa-child" aria-hidden="true"></i></div>
+                    }
+                    <div class="toolbar-mini__btn toolbar-mini__btn_theme_danger js-toolbar-close-table" data-target="@Url.Action("CloseTable","Manager")"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                </div>
+            }
+
+            <div>
+                @if (Model.TableNumber == "f")
+                {
+                    <h3 class="info-item-heading">Новый стол</h3>
+                }
+                else
+                {
+                    <h3 class="info-item-heading">Стол <span class="table-number">@Model.TableNumber </span></h3>
+                    if (Model.OrderPlaced != DateTime.MinValue)
+                    {
+                        <h5 class="info-item-heading">
+                            Время заказа: @orderTimeLocal.ToString(TimeFormat)
+                        </h5>
+                    }
+                }
+            </div>
+
+            <div class="table-labels">
+                @if (Model.Cheque != null && Model.Cheque.PaymentRecieved)
+                {
+                    <span class="label label-default">Оплачено @Model.Cheque.Summ ₽</span>
+                }
+
+                @if (Model.CashPayment)
+                {
+                    <span class="label label-default">Оплата наличными</span>
+                }
+            </div>
+
+            @foreach (var dish in Model.Orders)
+            {
+                <div class="dish-item">
+                    <div class="dish-name-item">
+                        <span class="dish-name">@dish.DishFromMenu.Name</span><span class="dish-price">@Model.DishPrice(dish)р.</span>
+                    </div>
+                    @if (dish.OrderedMods.Where(o => o.Count > 0).Any())
+                    {
+                        <span class="dish-item-remarks">@Model.DishMods(dish)</span>
+                    }
+                    @if (!string.IsNullOrEmpty(dish.Remarks))
+                    {
+                    <span class="dish-item-remarks">@dish.Remarks</span>
+                    }
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

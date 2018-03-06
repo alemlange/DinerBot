@@ -1,0 +1,23 @@
+﻿<header class="header-top">
+    <nav class="navbar-top">
+        <div class="navbar-left-btn-wrap">
+            <div class="navbar-left-btn js-opened"><i class="fa fa-bars"></i></div>
+        </div>
+        <ul class="toolbar-top">
+            @*<li>
+                <label class="active-rest-label">Текущий ресторан:</label>
+            </li>*@
+            <li>
+                <div class="active-rest">
+                    <select class="form-control js-rest-select" data-target="@Url.Action("RestaurantOptions","Manager")">
+                        @Html.Action("RestaurantOptions")
+                    </select>
+                </div>
+            </li>
+        </ul>
+        <a class="bot-status error" href="#" data-target="@Url.Action("BotStatus","Manager")" style="display: none;"><i class="fa fa-exclamation-triangle fa-2x"></i></a>
+        <a class="config js-config-section" href="#" data-target="@Url.Action("Configuration","Configuration")"><i class="fa fa-wrench"></i> Настройки</a>
+        <a class="logout" href="@Url.Action("Logoff","Account")"><i class="fa fa-sign-out"></i> Выйти</a>
+    </nav>
+</header>
+<script src="@Url.Content("~/Assets/Scripts/toolbar.js")" type="text/javascript"></script>

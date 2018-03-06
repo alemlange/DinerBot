@@ -1,0 +1,48 @@
+﻿@model ManagerDesk.ViewModels.MenuViewModel
+ @{
+     var dropdownId = "drop" + Model.Id;
+  }
+
+<div class="info-item js-menu-card animated fadeIn" data-itemid="@Model.Id" data-moretarget="@Url.Action("MenuMoreDishes","Menu")"  data-edittarget="@Url.Action("EditMenu","Menu")" data-type="Menu">
+
+    <div class="toolbar-mini">
+        <div class="toolbar-mini__btn dropdown pull-left">
+            <span class="dropdown-toggle menu-more-dishes" type="button" id="@dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
+            <div class="dropdown-menu dish-dropdown" aria-labelledby="@dropdownId">
+            </div>
+        </div>
+        <div class="toolbar-mini__btn dropdown pull-left">
+            <span class="dropdown-toggle menu-cat-list" type="button"  data-toggle="dropdown" data-cattarget="@Url.Action("MenuCatList","Menu")"><i class="fa fa-list" aria-hidden="true"></i></span>
+            <ul class="dropdown-menu cat-list-dropdown">
+            </ul>
+        </div>
+        <div class="toolbar-mini__btn js-edit-menu"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+        <div class="toolbar-mini__btn toolbar-mini__btn_theme_danger toolbar-delete" data-target="@Url.Action("DeleteItem","Manager")"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
+    </div>
+
+    <h3 class="info-item-heading">@Model.MenuName</h3>
+
+    @if (Model.AttachedRestaurantName != null)
+    {
+        <h4 class="login__heading">@Model.AttachedRestaurantName</h4>
+    }
+
+    @if (Model.GroupedDishes != null && Model.GroupedDishes.Any())
+    {
+        foreach (var dishList in Model.GroupedDishes)
+        {
+            <h4 class="info-item-heading cat-head">@dishList.CategoryString</h4>
+            foreach (var dish in dishList.Dishes)
+            {
+                <div class="dish-item">
+                    <div class="dish-name-item"><span class="dish-name">@dish.Name</span><span class="dish-price">@dish.Price р.</span></div>
+                </div>
+            }
+            <br/>
+        }
+    }
+    else
+    {
+        <p class="text-center error">Нажмите на <i class="fa fa-cutlery" aria-hidden="true"></i>, чтобы добавить блюда в меню.</p>
+    }
+</div>

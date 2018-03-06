@@ -1,0 +1,57 @@
+﻿@model ManagerDesk.ViewModels.ConfigViewModel
+
+<div class="row">
+    <div class="col-md-12 col-lg-6">
+        <div class="info-item animated fadeIn" data-itemid="@Model.Config.Id">
+            @using (Html.BeginForm("Configuration", "Configuration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <h3 class="config-heading">Настройки</h3>
+
+                @Html.LabelFor(model => model.Config.OrgName, "Организация", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Config.OrgName, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.LabelFor(model => model.Config.BotName, "Имя бота", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Config.BotName, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.LabelFor(model => model.Config.BotToken, "Токен бота", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Config.BotToken, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.LabelFor(model => model.Config.PaymentToken, "Токен оплаты", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Config.PaymentToken, new { htmlAttributes = new { @class = "form-control" } })
+
+                <button class="btn btn-default js-start-bot" data-target="@Url.Action("BotStart","Manager")">Запуск бота</button>
+
+                if (!string.IsNullOrEmpty(Model.Config.ProfilePicturePath))
+                {
+                    <img class="settings-profile-img" src="@Url.Content(Model.Config.ProfilePicturePath)" alt="pic" />
+                }
+                else
+                {
+                    <img class="settings-profile-img" src="@Url.Content("~/Assets/Imgs/empty-profile-img.png")" alt="pic" />
+                }
+                <label class="btn btn-default btn-file">
+                    Картинка <input id="Image" name="Image" class="picture-input" type="file" style="display: none;">
+                </label>
+
+                @Html.LabelFor(model => model.Config.Actions, "Акции", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Config.Actions, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.LabelFor(model => model.Config.Description, "Описание", htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Config.Description, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.LabelFor(model => model.Config.BotGreeting, "Приветствие бота", htmlAttributes: new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.Config.BotGreeting, new { @class = "form-control" })
+
+                <button class="btn btn-save-dishes" type="submit">Сохранить</button>
+                @Html.HiddenFor(o => o.Config.Id)
+                @Html.HiddenFor(o => o.Config.AccountId)
+                @Html.HiddenFor(o => o.Config.TelegramBotLocation)
+                @Html.HiddenFor(o => o.Config.ProfilePicturePath)
+                @Html.HiddenFor(o => o.Config.DishesPerPage)
+                @Html.HiddenFor(o => o.Config.BotKey)
+            }
+        </div>
+    </div>
+</div>
+
+

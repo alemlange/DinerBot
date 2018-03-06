@@ -1,0 +1,84 @@
+@import "config.css";
+
+/* Fonts
+====================================*/
+@font-face {
+    font-family: "RobotoRegular";
+    src: url("../fonts/RobotoRegular/RobotoRegular.woff");
+}
+
+@font-face {
+    font-family: "RobotoBold";
+    src: url("../fonts/RobotoBold/RobotoBold.woff");
+}
+
+@font-face {
+    font-family: "RobotoLight";
+    src: url("../fonts/RobotoLight/RobotoLight.woff");
+}
+
+@font-face {
+    font-family: "RobotoLight";
+    src: url("../fonts/RobotoLight/RobotoLight.woff");
+}
+
+/* Variables
+====================================*/
+@color-black: #000;
+@color-white: #fff;
+@color-main: #1ab394;
+@color-error: #ed5565;
+@color-grey: #808080; 
+@color-background: #f3f3f4;
+@color-background-item: #fff;
+@color-border: #e7eaec;
+@color-text: #676a6c;
+@color-message: #f8ac59;
+@box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+@font-size-main: 13px;
+
+/* Base Styles
+====================================*/
+html, body {
+    height: 100%;
+}
+
+body {
+  font-family: "RobotoRegular", sans-serif;
+  font-size: @font-size-main;
+  min-width: 320px;
+  background-color: @color-background;
+  color: @color-text;
+  overflow-y: scroll;
+}
+
+button {
+  border: none;
+}
+
+button:focus,
+button:active,
+select:focus,
+select:active,
+input:focus,
+input:active,
+textarea:focus,
+textarea:active {
+  outline: none;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.error {
+    color: @color-error;
+}
+
+//.flex {
+//  display: flex;
+//}
